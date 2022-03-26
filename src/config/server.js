@@ -10,7 +10,7 @@ const app = fastify({
 
 app.register(cors, {
   origin: "*",
-  methods: ["GET", "HEAD", "PUT", "POST", "DELETE", "PATCH", "OPTIONS"],
+  methods: ["OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE"],
 });
 
 app.register(helmet);

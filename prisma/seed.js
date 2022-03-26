@@ -8,15 +8,14 @@ const userData = [
   },
 ];
 
+const movieGenderData = ["action", "scify", "horror", "suspense"].map(
+  (name) => {
+    return { name };
+  }
+);
+
 async function main() {
   console.log(`Start seeding ...`);
-  let users = await prisma.user.findMany({
-    select: { email: true },
-  });
-  if (!!users.length) {
-    console.log(`Nothing to do here`);
-    return;
-  }
   for (const u of userData) {
     const hashedPassword = await hashPassword(u.password);
     const userData = { ...u, password: hashedPassword };
@@ -25,6 +24,12 @@ async function main() {
     });
     console.log(`Created user with id: ${user.id}`);
   }
+
+  for (const movieGender of movieGenderData) {
+    const gender = await prisma.gender.create({ data: movieGender });
+    console.log(`Created gender with id: ${gender.id}`);
+  }
+
   console.log(`Seeding finished.`);
 }
 
